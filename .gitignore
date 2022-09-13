@@ -6,7 +6,10 @@
 !src/**
 
 # Include files
+!.air.toml
 !.gitignore
+!Dockerfile
 !docker-compose.yml
 !go.mod
-!.air.toml
+!go.sum
+!readme.md
