@@ -1,0 +1,12 @@
+# Ignore everything by default
+*
+
+# Include directories
+!src/
+!src/**
+
+# Include files
+!.gitignore
+!docker-compose.yml
+!go.mod
+!.air.toml
