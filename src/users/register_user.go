@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/src/database"
+	"gopkg.in/gomail.v2"
 	"net/http"
+	"os"
+	"strconv"
 )
 
 type RegisterUserRequestBody struct {
@@ -43,6 +46,18 @@ func RegisterUser(context *gin.Context) {
 		Email:     body.Email,
 	}
 	database.Gorm.Create(&newUser)
+
+	message := gomail.NewMessage()
+	message.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL"))
+	message.SetHeader("To", body.Email)
+	message.SetHeader("Subject", "Go-server account activation")
+	message.SetBody("text/html", "<a href=\""+os.Getenv("SERVER_URL")+"/users/activate/"+strconv.FormatUint(uint64(newUser.ID), 10)+"\">Click here to activate your account.</a>")
+
+	d := gomail.NewDialer("smtp.gmail.com", 587, os.Getenv("SMTP_FROM"), os.Getenv("SMTP_PASSWORD"))
+
+	if err := d.DialAndSend(message); err != nil {
+		panic(err)
+	}
 
 	responseBody := RegisterUserResponseBody{ID: newUser.ID}
 	context.JSON(http.StatusOK, &responseBody)
