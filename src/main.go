@@ -17,6 +17,9 @@ func main() {
 
 	database.Connect()
 	database.Gorm.AutoMigrate(&database.User{})
+	database.Gorm.AutoMigrate(&database.Company{})
+	database.Gorm.AutoMigrate(&database.Profile{})
+	database.Gorm.AutoMigrate(&database.Post{})
 
 	r := gin.Default()
 
