@@ -29,7 +29,7 @@ func RegisterUser(context *gin.Context) {
 		return
 	}
 
-	existingUser := User{}
+	existingUser := database.User{}
 	result := database.Gorm.First(&existingUser, "email = ?", body.Email)
 
 	if result.RowsAffected != 0 {
@@ -40,7 +40,7 @@ func RegisterUser(context *gin.Context) {
 		return
 	}
 
-	newUser := User{
+	newUser := database.User{
 		FirstName: body.FirstName,
 		LastName:  body.LastName,
 		Email:     body.Email,

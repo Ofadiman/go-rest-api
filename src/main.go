@@ -16,7 +16,7 @@ func main() {
 	}
 
 	database.Connect()
-	database.Gorm.AutoMigrate(&users.User{})
+	database.Gorm.AutoMigrate(&database.User{})
 
 	r := gin.Default()
 

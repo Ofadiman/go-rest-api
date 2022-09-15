@@ -21,7 +21,7 @@ func GetUserById(context *gin.Context) {
 	}
 	fmt.Println(uri.ID)
 
-	existingUser := User{}
+	existingUser := database.User{}
 	result := database.Gorm.First(&existingUser, "id = ?", uri.ID)
 
 	if result.RowsAffected == 0 {
