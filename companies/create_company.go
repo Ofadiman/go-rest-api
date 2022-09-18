@@ -3,8 +3,8 @@ package companies
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/ofadiman/go-server/src/common"
-	"github.com/ofadiman/go-server/src/database"
+	"github.com/ofadiman/go-server/common"
+	database2 "github.com/ofadiman/go-server/database"
 	"net/http"
 )
 
@@ -30,8 +30,8 @@ func CreateCompany(context *gin.Context) {
 		return
 	}
 
-	owner := database.User{}
-	getUserByIdQueryResult := database.Gorm.First(&owner, "id = ?", body.OwnerID)
+	owner := database2.User{}
+	getUserByIdQueryResult := database2.Gorm.First(&owner, "id = ?", body.OwnerID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("user with id %v not found", body.OwnerID),
@@ -39,7 +39,7 @@ func CreateCompany(context *gin.Context) {
 		return
 	}
 
-	company := database.Company{
+	company := database2.Company{
 		Name:           body.Name,
 		CatchPhrase:    body.CatchPhrase,
 		BuildingNumber: body.BuildingNumber,
@@ -51,7 +51,7 @@ func CreateCompany(context *gin.Context) {
 		ZipCode:        body.ZipCode,
 		OwnerID:        body.OwnerID,
 	}
-	database.Gorm.Create(&company)
+	database2.Gorm.Create(&company)
 
 	context.JSON(http.StatusCreated, &company)
 }

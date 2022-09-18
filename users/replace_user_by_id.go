@@ -3,8 +3,8 @@ package users
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/ofadiman/go-server/src/common"
-	"github.com/ofadiman/go-server/src/database"
+	"github.com/ofadiman/go-server/common"
+	database2 "github.com/ofadiman/go-server/database"
 	"gopkg.in/guregu/null.v4"
 	"net/http"
 )
@@ -38,8 +38,8 @@ func ReplaceUserById(context *gin.Context) {
 		return
 	}
 
-	userByEmail := database.User{}
-	getUserByEmailQueryResult := database.Gorm.First(&userByEmail, "email = ?", body.Email)
+	userByEmail := database2.User{}
+	getUserByEmailQueryResult := database2.Gorm.First(&userByEmail, "email = ?", body.Email)
 	if getUserByEmailQueryResult.RowsAffected != 0 {
 		context.AbortWithStatusJSON(http.StatusConflict, common.ApplicationError{
 			Message: fmt.Sprintf("user with email %v already exists", body.Email),
@@ -48,8 +48,8 @@ func ReplaceUserById(context *gin.Context) {
 	}
 
 	if body.PhoneNumber != nil {
-		userByPhoneNumber := database.User{}
-		getUserByPhoneNumberQueryResult := database.Gorm.First(&userByPhoneNumber, "phone_number = ?", body.PhoneNumber)
+		userByPhoneNumber := database2.User{}
+		getUserByPhoneNumberQueryResult := database2.Gorm.First(&userByPhoneNumber, "phone_number = ?", body.PhoneNumber)
 		if getUserByPhoneNumberQueryResult.RowsAffected != 0 {
 			context.AbortWithStatusJSON(http.StatusConflict, common.ApplicationError{
 				Message: fmt.Sprintf("user with phone number %v already exists", body.PhoneNumber),
@@ -58,8 +58,8 @@ func ReplaceUserById(context *gin.Context) {
 		}
 	}
 
-	user := database.User{}
-	getUserByIdQueryResult := database.Gorm.First(&user, "id = ?", uri.UserID)
+	user := database2.User{}
+	getUserByIdQueryResult := database2.Gorm.First(&user, "id = ?", uri.UserID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("user with id %v not found", uri.UserID),
@@ -67,8 +67,8 @@ func ReplaceUserById(context *gin.Context) {
 		return
 	}
 
-	database.Gorm.Model(&user).
-		Where(&database.User{ID: uri.UserID}).
+	database2.Gorm.Model(&user).
+		Where(&database2.User{ID: uri.UserID}).
 		Updates(map[string]interface{}{
 			"FirstName":   body.FirstName,
 			"LastName":    body.LastName,

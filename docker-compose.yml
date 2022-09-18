@@ -4,8 +4,11 @@ services:
   golang_app:
     working_dir: /app
     build:
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
       context: .
+    environment:
+      APP_ENV: development
+      DATABASE_DSN: 'host=golang_database user=admin password=password dbname=postgres port=5432 sslmode=disable TimeZone=Europe/Warsaw'
     ports:
       - 9000:8080
     volumes:

@@ -2,8 +2,8 @@ package users
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ofadiman/go-server/src/common"
-	"github.com/ofadiman/go-server/src/database"
+	"github.com/ofadiman/go-server/common"
+	database2 "github.com/ofadiman/go-server/database"
 	"net/http"
 )
 
@@ -21,10 +21,10 @@ func PaginateUsers(context *gin.Context) {
 		return
 	}
 
-	var users []database.User
-	database.Gorm.Offset(int((query.Page - 1) * query.PerPage)).Limit(int(query.PerPage)).Find(&users)
+	var users []database2.User
+	database2.Gorm.Offset(int((query.Page - 1) * query.PerPage)).Limit(int(query.PerPage)).Find(&users)
 	var count int64
-	database.Gorm.Model(&database.User{}).Count(&count)
+	database2.Gorm.Model(&database2.User{}).Count(&count)
 
 	context.JSON(http.StatusOK, gin.H{
 		"rows": users,

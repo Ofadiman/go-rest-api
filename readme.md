@@ -4,10 +4,21 @@ Web server written in Golang.
 
 # Application environment variables
 
-- `SERVER_URL` - The URL where the HTTP server is available (e.g. `http://127.0.0.1:8080`).
-- `SMTP_FROM` - The name of the user who sends email via SMTP (e.g. `John`).
-- `SMTP_FROM_EMAIL` - Email address of the user who sends email via SMTP (e.g. `john.doe@gmail.com`).
-- `SMTP_PASSWORD` - The password of the user who sends email via SMTP (e.g. `asdf1234`).
+- `DATABASE_DSN` - Connection string to the database.
+- `APP_ENV` - The name of the environment in which to run the application (e.g. `development`, `production`).
+
+# Swagger
+
+Swagger documentation is available at `<server_url>/swagger/index.html`
+
+# Deployment
+
+In order to deploy anything to railway you have to have [railway cli](https://docs.railway.app/develop/cli) installed. The application deployment process on [railway](https://railway.app/) is very simple and comes down to the following steps:
+
+1. Create a PostgreSQL database via railway UI.
+2. Connect railway project to local project.
+3. Run deployment command `railway up RAILWAY_DOCKERFILE_PATH=prod.Dockerfile`.
+4. Add necessary environment variables.
 
 # Resources
 
@@ -15,4 +26,4 @@ Web server written in Golang.
 - [Gin binding in golang, tutorial with examples by LogRocket.](https://blog.logrocket.com/gin-binding-in-go-a-tutorial-with-examples/)
 - [Building REST API with Golang using GIN and GORM.](https://blog.logrocket.com/how-to-build-a-rest-api-with-golang-using-gin-and-gorm/)
 - [Discussion on stackoverflow about how to implement PATCH request in REST API in Goland.](https://stackoverflow.com/questions/38206479/golang-rest-patch-and-building-an-update-query)
-- [https://williamdurand.fr/2014/02 /14/please-dont-patch-like-that/](https://williamdurand.fr/2014/02/14/please-dont-patch-like-that/)
+- [Article discouraging from using PATCH.](https://williamdurand.fr/2014/02/14/please-dont-patch-like-that/)

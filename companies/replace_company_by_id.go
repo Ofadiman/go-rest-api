@@ -3,8 +3,8 @@ package companies
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/ofadiman/go-server/src/common"
-	"github.com/ofadiman/go-server/src/database"
+	"github.com/ofadiman/go-server/common"
+	database2 "github.com/ofadiman/go-server/database"
 	"net/http"
 )
 
@@ -42,8 +42,8 @@ func ReplaceCompanyById(context *gin.Context) {
 		return
 	}
 
-	user := database.User{}
-	getUserByIdQueryResult := database.Gorm.First(&user, "id = ?", body.OwnerID)
+	user := database2.User{}
+	getUserByIdQueryResult := database2.Gorm.First(&user, "id = ?", body.OwnerID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("user with id %v not found", body.OwnerID),
@@ -51,8 +51,8 @@ func ReplaceCompanyById(context *gin.Context) {
 		return
 	}
 
-	company := database.Company{}
-	getCompanyByIdQueryResult := database.Gorm.First(&company, "id = ?", uri.CompanyID)
+	company := database2.Company{}
+	getCompanyByIdQueryResult := database2.Gorm.First(&company, "id = ?", uri.CompanyID)
 	if getCompanyByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("compnay with id %v not found", uri.CompanyID),
@@ -60,8 +60,8 @@ func ReplaceCompanyById(context *gin.Context) {
 		return
 	}
 
-	database.Gorm.Model(&company).
-		Where(&database.Company{ID: uri.CompanyID}).
+	database2.Gorm.Model(&company).
+		Where(&database2.Company{ID: uri.CompanyID}).
 		Updates(map[string]interface{}{
 			"Name":           body.Name,
 			"CatchPhrase":    body.CatchPhrase,
