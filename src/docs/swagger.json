@@ -1,0 +1,41 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "ping server",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ping"
+                ],
+                "summary": "ping example",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.PingResponseBody"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.PingResponseBody": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

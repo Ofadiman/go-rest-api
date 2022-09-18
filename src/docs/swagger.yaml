@@ -1,0 +1,25 @@
+definitions:
+  main.PingResponseBody:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: ping server
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.PingResponseBody'
+      summary: ping example
+      tags:
+      - ping
+swagger: "2.0"
