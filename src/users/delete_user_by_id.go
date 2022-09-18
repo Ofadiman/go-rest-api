@@ -8,12 +8,12 @@ import (
 	"strconv"
 )
 
-type GetUserByIdRequestUri struct {
+type DeleteUserByIdRequestUri struct {
 	UserID uint64 `uri:"userId" binding:"required"`
 }
 
-func GetUserById(context *gin.Context) {
-	uri := GetUserByIdRequestUri{}
+func DeleteUserById(context *gin.Context) {
+	uri := DeleteUserByIdRequestUri{}
 	if err := context.ShouldBindUri(&uri); err != nil {
 		context.AbortWithStatusJSON(http.StatusBadRequest, common.ApplicationError{
 			Message: err.Error(),
@@ -21,8 +21,8 @@ func GetUserById(context *gin.Context) {
 		return
 	}
 
-	existingUser := database.User{}
-	getUserByIdQueryResult := database.Gorm.First(&existingUser, "id = ?", uri.UserID)
+	user := database.User{}
+	getUserByIdQueryResult := database.Gorm.First(&user, "id = ?", uri.UserID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: "user with id " + strconv.Itoa(int(uri.UserID)) + " not found",
@@ -30,5 +30,7 @@ func GetUserById(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, &existingUser)
+	database.Gorm.Unscoped().Delete(&user)
+
+	context.Status(http.StatusNoContent)
 }
