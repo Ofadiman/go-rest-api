@@ -3,7 +3,7 @@ package posts
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"net/http"
 )
 
@@ -23,13 +23,13 @@ func CreatePost(context *gin.Context) {
 		return
 	}
 
-	post := database2.Post{
+	post := database.Post{
 		Title:      body.Title,
 		Content:    body.Content,
 		TimeToRead: body.TimeToRead,
 		UserID:     body.UserID,
 	}
-	database2.Gorm.Create(&post)
+	database.Gorm.Create(&post)
 
 	context.JSON(http.StatusCreated, &post)
 }

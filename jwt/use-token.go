@@ -10,9 +10,6 @@ import (
 	"strings"
 )
 
-type Claims struct {
-}
-
 func UseToken(context *gin.Context) {
 	authHeader := context.GetHeader("Authorization")
 	tokenString := strings.Replace(authHeader, "Bearer ", "", 1)

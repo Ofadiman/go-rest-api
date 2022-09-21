@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"net/http"
 )
 
@@ -21,8 +21,8 @@ func GetPostById(context *gin.Context) {
 		return
 	}
 
-	post := database2.Post{}
-	getPostByIdQueryResult := database2.Gorm.First(&post, "id = ?", uri.PostID)
+	post := database.Post{}
+	getPostByIdQueryResult := database.Gorm.First(&post, "id = ?", uri.PostID)
 	if getPostByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("post with id %v not found", uri.PostID),

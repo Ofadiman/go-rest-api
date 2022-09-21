@@ -3,7 +3,7 @@ package users
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"net/http"
 	"strconv"
 )
@@ -21,8 +21,8 @@ func DeleteUserById(context *gin.Context) {
 		return
 	}
 
-	user := database2.User{}
-	getUserByIdQueryResult := database2.Gorm.First(&user, "id = ?", uri.UserID)
+	user := database.User{}
+	getUserByIdQueryResult := database.Gorm.First(&user, "id = ?", uri.UserID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: "user with id " + strconv.Itoa(int(uri.UserID)) + " not found",
@@ -30,7 +30,7 @@ func DeleteUserById(context *gin.Context) {
 		return
 	}
 
-	database2.Gorm.Unscoped().Delete(&user)
+	database.Gorm.Unscoped().Delete(&user)
 
 	context.Status(http.StatusNoContent)
 }

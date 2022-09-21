@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"net/http"
 )
 
@@ -21,8 +21,8 @@ func DeleteProfileById(context *gin.Context) {
 		return
 	}
 
-	profile := database2.Profile{}
-	getProfileByIdQueryResult := database2.Gorm.First(&profile, "id = ?", uri.ProfileID)
+	profile := database.Profile{}
+	getProfileByIdQueryResult := database.Gorm.First(&profile, "id = ?", uri.ProfileID)
 	if getProfileByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("profile with id %v not found", uri.ProfileID),
@@ -30,7 +30,7 @@ func DeleteProfileById(context *gin.Context) {
 		return
 	}
 
-	database2.Gorm.Unscoped().Delete(&profile)
+	database.Gorm.Unscoped().Delete(&profile)
 
 	context.Status(http.StatusNoContent)
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"gopkg.in/guregu/null.v4"
 	"net/http"
 )
@@ -40,8 +40,8 @@ func ReplaceProfileById(context *gin.Context) {
 		return
 	}
 
-	user := database2.User{}
-	getUserByIdQueryResult := database2.Gorm.First(&user, "id = ?", body.UserID)
+	user := database.User{}
+	getUserByIdQueryResult := database.Gorm.First(&user, "id = ?", body.UserID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("user with id %v not found", body.UserID),
@@ -49,8 +49,8 @@ func ReplaceProfileById(context *gin.Context) {
 		return
 	}
 
-	profile := database2.Profile{}
-	getProfileByIdQueryResult := database2.Gorm.First(&profile, "id = ?", uri.ProfileID)
+	profile := database.Profile{}
+	getProfileByIdQueryResult := database.Gorm.First(&profile, "id = ?", uri.ProfileID)
 	if getProfileByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("profile with id %v not found", uri.ProfileID),
@@ -58,8 +58,8 @@ func ReplaceProfileById(context *gin.Context) {
 		return
 	}
 
-	database2.Gorm.Model(&profile).
-		Where(&database2.Profile{ID: uri.ProfileID}).
+	database.Gorm.Model(&profile).
+		Where(&database.Profile{ID: uri.ProfileID}).
 		Updates(map[string]interface{}{
 			"UserID":         body.UserID,
 			"Picture":        null.StringFromPtr(body.Picture),

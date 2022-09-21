@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"gopkg.in/guregu/null.v4"
 	"net/http"
 )
@@ -27,8 +27,8 @@ func CreateProfile(context *gin.Context) {
 		})
 	}
 
-	user := database2.User{}
-	findUserByIdQueryResult := database2.Gorm.First(&user, "id = ?", body.UserID)
+	user := database.User{}
+	findUserByIdQueryResult := database.Gorm.First(&user, "id = ?", body.UserID)
 	if findUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: fmt.Sprintf("user with id %v not found", body.UserID),
@@ -36,8 +36,8 @@ func CreateProfile(context *gin.Context) {
 		return
 	}
 
-	existingProfile := database2.Profile{}
-	findProfileByUserIdQueryResult := database2.Gorm.First(&existingProfile, "user_id = ?", body.UserID)
+	existingProfile := database.Profile{}
+	findProfileByUserIdQueryResult := database.Gorm.First(&existingProfile, "user_id = ?", body.UserID)
 	if findProfileByUserIdQueryResult.RowsAffected == 1 {
 		context.AbortWithStatusJSON(http.StatusConflict, common.ApplicationError{
 			Message: fmt.Sprintf("profile for user with id %v already exists", body.UserID),
@@ -45,7 +45,7 @@ func CreateProfile(context *gin.Context) {
 		return
 	}
 
-	newProfile := database2.Profile{
+	newProfile := database.Profile{
 		UserID:         body.UserID,
 		Picture:        null.StringFromPtr(body.Picture),
 		FavoriteAnimal: null.StringFromPtr(body.FavoriteAnimal),
@@ -54,7 +54,7 @@ func CreateProfile(context *gin.Context) {
 		Gender:         null.StringFromPtr(body.Gender),
 		JobTitle:       null.StringFromPtr(body.JobTitle),
 	}
-	database2.Gorm.Create(&newProfile)
+	database.Gorm.Create(&newProfile)
 
 	context.JSON(http.StatusCreated, &newProfile)
 }

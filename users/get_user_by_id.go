@@ -3,7 +3,7 @@ package users
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
-	database2 "github.com/ofadiman/go-server/database"
+	"github.com/ofadiman/go-server/database"
 	"net/http"
 	"strconv"
 )
@@ -21,8 +21,8 @@ func GetUserById(context *gin.Context) {
 		return
 	}
 
-	existingUser := database2.User{}
-	getUserByIdQueryResult := database2.Gorm.First(&existingUser, "id = ?", uri.UserID)
+	existingUser := database.User{}
+	getUserByIdQueryResult := database.Gorm.First(&existingUser, "id = ?", uri.UserID)
 	if getUserByIdQueryResult.RowsAffected == 0 {
 		context.AbortWithStatusJSON(http.StatusNotFound, common.ApplicationError{
 			Message: "user with id " + strconv.Itoa(int(uri.UserID)) + " not found",
