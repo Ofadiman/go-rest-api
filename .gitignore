@@ -10,6 +10,8 @@
 !database/**
 !docs/
 !docs/**
+!jwt/
+!jwt/**
 !posts/
 !posts/**
 !profiles/

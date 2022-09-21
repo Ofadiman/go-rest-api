@@ -5,6 +5,7 @@ import (
 	companies2 "github.com/ofadiman/go-server/companies"
 	database2 "github.com/ofadiman/go-server/database"
 	"github.com/ofadiman/go-server/docs"
+	"github.com/ofadiman/go-server/jwt"
 	posts2 "github.com/ofadiman/go-server/posts"
 	profiles2 "github.com/ofadiman/go-server/profiles"
 	users2 "github.com/ofadiman/go-server/users"
@@ -64,6 +65,9 @@ func main() {
 	r.GET("/companies/:companyId", companies2.GetCompanyById)
 	r.PUT("/companies/:companyId", companies2.ReplaceCompanyById)
 	r.DELETE("/companies/:companyId", companies2.DeleteCompanyById)
+
+	r.POST("/jwt/get-token", jwt.GetToken)
+	r.GET("/jwt/use-token", jwt.UseToken)
 
 	r.Run()
 }

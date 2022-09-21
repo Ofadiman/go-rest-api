@@ -9,6 +9,7 @@ services:
     environment:
       APP_ENV: development
       DATABASE_DSN: 'host=golang_database user=admin password=password dbname=postgres port=5432 sslmode=disable TimeZone=Europe/Warsaw'
+      JWT_SECRET: g2o9p48giynt21opv2uingpo4gn2o
     ports:
       - 9000:8080
     volumes:
