@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/auth"
 	"github.com/ofadiman/go-server/companies"
+	"github.com/ofadiman/go-server/cookies"
 	"github.com/ofadiman/go-server/database"
 	"github.com/ofadiman/go-server/docs"
 	"github.com/ofadiman/go-server/posts"
@@ -69,6 +70,9 @@ func main() {
 	r.POST("/auth/jwt", auth.GetToken)
 	r.GET("/auth/jwt", auth.UseToken)
 	r.GET("/auth/basic", gin.BasicAuth(gin.Accounts{"user": "password"}), auth.UseBasicAuth)
+
+	r.POST("/cookies", cookies.SetCookies)
+	r.GET("/cookies", cookies.ClearCookies)
 
 	r.Run()
 }

@@ -8,6 +8,8 @@
 !common/**
 !companies/
 !companies/**
+!cookies/
+!cookies/**
 !database/
 !database/**
 !docs/
