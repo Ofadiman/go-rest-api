@@ -9,8 +9,6 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /docker-gs-ping
+RUN go build -o /app
 
-EXPOSE 8080
-
-CMD [ "/docker-gs-ping" ]
+CMD [ "/app" ]
