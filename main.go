@@ -68,6 +68,7 @@ func main() {
 
 	r.POST("/auth/jwt", auth.GetToken)
 	r.GET("/auth/jwt", auth.UseToken)
+	r.GET("/auth/basic", gin.BasicAuth(gin.Accounts{"user": "password"}), auth.UseBasicAuth)
 
 	r.Run()
 }

@@ -28,3 +28,4 @@ In order to deploy anything to railway you have to have [railway cli](https://do
 - [Building REST API with Golang using GIN and GORM.](https://blog.logrocket.com/how-to-build-a-rest-api-with-golang-using-gin-and-gorm/)
 - [Discussion on stackoverflow about how to implement PATCH request in REST API in Goland.](https://stackoverflow.com/questions/38206479/golang-rest-patch-and-building-an-update-query)
 - [Article discouraging from using PATCH.](https://williamdurand.fr/2014/02/14/please-dont-patch-like-that/)
+- [Article showing how to use basic auth in gin framework.](https://jonathanmh.com/go-gin-http-basic-auth/)
