@@ -2,6 +2,8 @@
 *
 
 # Include directories
+!auth/
+!auth/**
 !common/
 !common/**
 !companies/
@@ -10,8 +12,6 @@
 !database/**
 !docs/
 !docs/**
-!jwt/
-!jwt/**
 !posts/
 !posts/**
 !profiles/

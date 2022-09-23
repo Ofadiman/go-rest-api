@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/ofadiman/go-server/auth"
 	"github.com/ofadiman/go-server/companies"
 	"github.com/ofadiman/go-server/database"
 	"github.com/ofadiman/go-server/docs"
-	"github.com/ofadiman/go-server/jwt"
 	"github.com/ofadiman/go-server/posts"
 	"github.com/ofadiman/go-server/profiles"
 	"github.com/ofadiman/go-server/users"
@@ -18,7 +18,7 @@ type PingResponseBody struct {
 	Message string `json:"message"`
 }
 
-// PingExample godoc
+// Ping godoc
 // @Summary ping example
 // @Schemes
 // @Description ping server
@@ -66,8 +66,8 @@ func main() {
 	r.PUT("/companies/:companyId", companies.ReplaceCompanyById)
 	r.DELETE("/companies/:companyId", companies.DeleteCompanyById)
 
-	r.POST("/jwt/get-token", jwt.GetToken)
-	r.GET("/jwt/use-token", jwt.UseToken)
+	r.POST("/auth/jwt", auth.GetToken)
+	r.GET("/auth/jwt", auth.UseToken)
 
 	r.Run()
 }
