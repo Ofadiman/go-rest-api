@@ -8,6 +8,7 @@ Web server written in Golang.
 - `APP_ENV` - The name of the environment in which to run the application (e.g. `development`, `production`).
 - `JWT_SECRET` - The name of the environment variable which indicates a secret that will be used to sign JWT tokens.
 - `COOKIE_SECRET` - The name of the environment variable used to encrypt values in cookies. It must have 24 characters.
+- `COOKIE_DOMAIN` - The name of the domain under which the cookie will be set.
 
 # Swagger
 

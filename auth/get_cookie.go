@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ofadiman/go-server/common"
 	"net/http"
+	"os"
 )
 
 const cookieValue = "super secret cookie"
@@ -47,5 +48,5 @@ func GetCookie(context *gin.Context) {
 	cipherText := make([]byte, len(plainText))
 	cfb.XORKeyStream(cipherText, plainText)
 
-	context.SetCookie("custom_name", base64.StdEncoding.EncodeToString(cipherText), 3600, "/", "localhost", false, true)
+	context.SetCookie("custom_name", base64.StdEncoding.EncodeToString(cipherText), 3600, "/", os.Getenv("COOKIE_DOMAIN"), false, true)
 }

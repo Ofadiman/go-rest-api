@@ -9,6 +9,7 @@ services:
     environment:
       APP_ENV: development
       COOKIE_SECRET: b262e3681420222898e616c9
+      COOKIE_DOMAIN: localhost
       DATABASE_DSN: 'host=golang_database user=admin password=password dbname=postgres port=5432 sslmode=disable TimeZone=Europe/Warsaw'
       JWT_SECRET: g2o9p48giynt21opv2uingpo4gn2o
       PORT: 9616 # This is a random port so as to distinguish it from the one available on the host.
