@@ -7,6 +7,7 @@ Web server written in Golang.
 - `DATABASE_DSN` - Connection string to the database.
 - `APP_ENV` - The name of the environment in which to run the application (e.g. `development`, `production`).
 - `JWT_SECRET` - The name of the environment variable which indicates a secret that will be used to sign JWT tokens.
+- `COOKIE_SECRET` - The name of the environment variable used to encrypt values in cookies. It must have 24 characters.
 
 # Swagger
 
